@@ -8,10 +8,10 @@
   
   {{>loginButtons}}
 
-  <div >
+  {{#if currentUser}}
   	{{>addBookForm}}
   	{{>board}}
-  </div>
+  {{/if}}
 </body>
 
 <template name="addBookForm">
