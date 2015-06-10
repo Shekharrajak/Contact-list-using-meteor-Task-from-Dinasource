@@ -5,14 +5,37 @@
 <body>
   <h1>Create account and save your contact.</h1>
 
-  {{>loginBox}}
+  
+  {{> loginButtons}}
+
+  <div >
+  	{{>addBookForm}}
+  	{{>board}}
+  </div>
 </body>
 
-<template name="loginBox">
-  First Name: <input type="text" data-bind="value: first"/>
-  <br/>
-  Last Name: <input type="text" data-bind="value: last"/>
-  <div data-bind="text: greeting"></div>
-  <a data-bind="enabled: canEnter, hover: showError" class="btn-primary">Enter Site</a>
-  <span data-bind="text: errorText" class="text-error"></span>
+<template name="addBookForm">
+ 	{{#if currentUser}}
+ 		<form>
+ 			<input type="text" name="bookName">
+ 			<input type="submit" value="Add Books">
+ 		</form>
+ 	{{/if}}
+ </template>
+
+
+<template name="board">
+	<ul>
+	    {{#each book}}
+	        <li class="book {{selectedClass}}">{{name}}: {{score}}</li>
+	    {{/each}}
+	    <li>
+	    	<input type="button" class="increment" value="Give 5 Points">
+	    	<input type="button" class="decrement" value="Take 5 Points">
+	    	<input type="button" class="remove" value="Remove Player">
+    	</li>
+    	{{#if showSelectedBook}}
+		    <li>Selected Books: {{showSelectedBook.name}}</li>
+		{{/if}}
+	</ul>
 </template>
