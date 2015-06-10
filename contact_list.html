@@ -1,0 +1,18 @@
+<head>
+  <title>contact_list</title>
+</head>
+
+<body>
+  <h1>Create account and save your contact.</h1>
+
+  {{>loginBox}}
+</body>
+
+<template name="loginBox">
+  First Name: <input type="text" data-bind="value: first"/>
+  <br/>
+  Last Name: <input type="text" data-bind="value: last"/>
+  <div data-bind="text: greeting"></div>
+  <a data-bind="enabled: canEnter, hover: showError" class="btn-primary">Enter Site</a>
+  <span data-bind="text: errorText" class="text-error"></span>
+</template>
