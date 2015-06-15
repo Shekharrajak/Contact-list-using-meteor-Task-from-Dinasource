@@ -6,10 +6,12 @@
   <h1>Create account and save your contact.</h1>
 
   
-  {{>loginButtons}}
+  {{> header}}
 
   {{#if currentUser}}
-  	{{>contacts}}
+  	{{>contact}}
+    {{>contacts}}
+
   	
   {{/if}}
 </body>
