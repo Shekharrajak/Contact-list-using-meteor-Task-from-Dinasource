@@ -1,4 +1,5 @@
 contactList=new Mongo.Collection('contactlist')
+
 if (Meteor.isClient) {
   // counter starts at 0
   Template.contacts.onCreated( function() {
