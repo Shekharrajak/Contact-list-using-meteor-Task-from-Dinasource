@@ -9,33 +9,63 @@
   {{>loginButtons}}
 
   {{#if currentUser}}
-  	{{>addBookForm}}
-  	{{>board}}
+  	{{>contacts}}
+  	
   {{/if}}
 </body>
+<template name="contacts">
+  <div id="contacts">
+    <h5>Your Contacts:</h5>
+    {{#if contactlist}}
+		{{#each contactList}}
+      		{{> contact}}
+    	{{/each}}
+    
+    {{else}}
+    	<h6>No contact is added here.</h6>
+    {{/if}}
+    <hr/>
+    <h4>Add new contact :</h4>
+    <form>
+      <div class="control-group">
+        <label>Name:</label>
+        <input type="text" data-bind="value: name"/>
+      </div>
+      <div class="control-group">
+        <label>Number:</label>
+        <input type="text" data-bind="value: number"/>
+      </div>
+      <div class="control-group">
+        <label>Email:</label>
+        <input type="text" data-bind="value: email"/>
+      </div>
+      <div class="control-group">
+        <a class="btn-primary" data-bind="click: addContact, enabled: canAddContact, hover: tryAdd">Add contact</a>
+      </div>
+    </form>
+    <label><span data-bind="text: errorText" class="text-error"></span></label>
+  </div>
+</template>
 
-<template name="addBookForm">
- 	{{#if currentUser}}
- 		<form>
- 			<input type="text" name="bookName">
- 			<input type="submit" value="Add Books">
- 		</form>
- 	{{/if}}
- </template>
-
-
-<template name="board">
-	<ul>
-	    {{#each book}}
-	        <li class="book {{selectedClass}}">{{name}}: {{score}}</li>
-	    {{/each}}
-	    <li>
-	    	<input type="button" class="increment" value="Give 5 Points">
-	    	<input type="button" class="decrement" value="Take 5 Points">
-	    	<input type="button" class="remove" value="Remove Player">
-    	</li>
-    	{{#if showSelectedBook}}
-		    <li>Selected Books: {{showSelectedBook.name}}</li>
-		{{/if}}
-	</ul>
+<template name="contact">
+  <div data-bind="hover: showControls" class="row">
+    <div data-bind="if: editMode">
+      <div class="contact-single">
+        <input type="text" data-bind="value: name"/>
+        <input type="text" data-bind="value: number, focused: numberFocus"/>
+      </div>
+      <div class="contact-controls">
+        <button data-bind="click: update, enabled: canUpdate" class="btn-primary">Update</button>
+        <button data-bind="click: cancel" class="btn">Cancel</button>
+      </div>
+      <div class="contact-controls"><span data-bind="if: !canUpdate" class="text-error">Name and Number are required</span></div>
+    </div>
+    <div data-bind="if: !editMode">
+      <div class="contact-single"><span data-bind="text: contact.name"></span><span data-bind="text: contact.number"></span></div>
+      <div data-bind="if: showControls" class="contact-controls">
+        <button data-bind="click: edit" class="btn-info">Edit</button>
+        <button data-bind="click: delete" class="btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
 </template>
